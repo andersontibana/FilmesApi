@@ -30,7 +30,7 @@ namespace FilmesAPI.Controllers
             Gerente gerente = _mapper.Map<Gerente>(gerenteDto);
             _context.Gerentes.Add(gerente);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(RecupereGerentePorId), new { Id = gerente.Id }, gerente);
+            return CreatedAtAction(nameof(RecuperaGerentePorId), new { Id = gerente.Id }, gerente);
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecupereGerentePorId(int id)
+        public IActionResult RecuperaGerentePorId(int id)
         {
             Gerente gerente = _context.Gerentes.FirstOrDefault(gerente => gerente.Id == id);
             if (gerente != null)
@@ -50,6 +50,19 @@ namespace FilmesAPI.Controllers
                 return Ok(gerenteDto);
             }
             return NotFound();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletaGerente(int id)
+        {
+            Gerente gerente = _context.Gerentes.FirstOrDefault(gerente => gerente.Id == id);
+            if (gerente == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(gerente);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 
