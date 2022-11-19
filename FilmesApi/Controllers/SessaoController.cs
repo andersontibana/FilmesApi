@@ -14,7 +14,6 @@ namespace FilmesApi.Controllers
     public class SessaoController : ControllerBase
     {
         private SessaoService _sessaoService;
-        private IMapper _mapper;
 
         public SessaoController(SessaoService sessaoService)
         {
